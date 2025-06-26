@@ -5,8 +5,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import {collection,addDoc,Timestamp} from "firebase/firestore";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,21 +18,72 @@ const Login = () => {
   const handleSubmit = async () => {
     try {
       if (isSignup) {
-        await createUserWithEmailAndPassword(auth, email, pass);
-        alert("Account created!");
+        //Added
+        /* Invalid implementation:-
+         await createUserWithEmailAndPassword(auth, email, pass);
+         */
+        const users = await createUserWithEmailAndPassword(auth, email, pass);
+        const user = {
+          uid: users.user.uid,
+          email: users.user.email,
+          time : Timestamp.now()
+      }
+      const userRef = collection(db, "users")
+              await addDoc(userRef, user);
+              alert("Account created!");
+              setEmail("");
+              setPass("");
+        // alert("Account created!");
+        //Till here
       } else {
         await signInWithEmailAndPassword(auth, email, pass);
       }
       navigate("/");
-    } catch (err) {
+     } 
+     /* Discarded Catch
+     catch (err) {
       alert(err.message);
+    }*/
+
+    //Updated Catch:
+    catch (err) {
+      console.error("Authentication error:", err);
+      
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+        alert("Account not found. Please create an account first.");
+        setIsSignup(true); 
+      } else if (err.code === 'auth/wrong-password') {
+        alert("Incorrect password. Please try again.");
+      } else if (err.code === 'auth/email-already-in-use') {
+        alert("Account already exists. Please login instead.");
+        setIsSignup(false); 
+      } else if (err.code === 'auth/weak-password') {
+        alert("Password should be at least 6 characters long.");
+      } else if (err.code === 'auth/invalid-email') {
+        alert("Please enter a valid email address.");
+      } else {
+        alert("Error: " + err.message);
+      }
     }
+    //Ends Here
   };
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      //Added
+     const result= await signInWithPopup(auth, provider);
+      const user = {
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
+        createdAt: Timestamp.now()
+      };
+      
+      const userRef = collection(db, "users");
+      await addDoc(userRef, user);
+      //Till here
       navigate("/");
     } catch (err) {
       alert(err.message);
