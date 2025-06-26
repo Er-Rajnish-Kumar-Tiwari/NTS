@@ -4,6 +4,8 @@ import { FiMapPin } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import MapWithDirection from "../Components/MapWithMarkers";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
 const allWorkers = [
   {
@@ -77,6 +79,15 @@ const Explore = () => {
   const [expandedWorkerId, setExpandedWorkerId] = useState(null);
   const [showMapWorkerId, setShowMapWorkerId] = useState(null);
   const [userCoords, setUserCoords] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [booking, setBooking] = useState({});
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (query) setSearchTerm(query);
@@ -117,6 +128,14 @@ const Explore = () => {
     );
   };
 
+  const handleBooking = (workerId, date, time) => {
+    setBooking((prev) => ({
+      ...prev,
+      [workerId]: { date, time },
+    }));
+    alert(`Booking confirmed on ${date} at ${time}`);
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-4 pb-24">
       <h1 className="text-3xl font-bold mb-6 text-orange-700 text-center">
@@ -131,7 +150,6 @@ const Explore = () => {
         />
       </div>
 
-      {/* Trending Categories */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-2">Trending Categories</h2>
         <div className="flex flex-wrap gap-3">
@@ -147,7 +165,6 @@ const Explore = () => {
         </div>
       </div>
 
-      {/* Worker Cards */}
       {filteredWorkers.length > 0 ? (
         filteredWorkers.map((worker) => (
           <div
@@ -180,42 +197,84 @@ const Explore = () => {
 
             {expandedWorkerId === worker.id && (
               <div className="mt-3 text-sm text-gray-700 border-t pt-3 space-y-1">
-                <p><strong>📞 Phone:</strong> {worker.phone}</p>
-                <p><strong>📧 Email:</strong> {worker.email}</p>
-                <p><strong>🧰 Experience:</strong> {worker.experience}</p>
-                <p><strong>🎂 Age:</strong> {worker.age} yrs</p>
+                {isLoggedIn ? (
+                  <>
+                    <p><strong>📞 Phone:</strong> {worker.phone}</p>
+                    <p><strong>📧 Email:</strong> {worker.email}</p>
+                    <p><strong>🧰 Experience:</strong> {worker.experience}</p>
+                    <p><strong>🎂 Age:</strong> {worker.age} yrs</p>
 
-                <button
-                  onClick={() => {
-                    getUserLocation();
-                    setShowMapWorkerId(
-                      showMapWorkerId === worker.id ? null : worker.id
-                    );
-                  }}
-                  className="mt-2 text-sm text-blue-500 hover:underline"
-                >
-                  {showMapWorkerId === worker.id ? "Hide Map" : "Show Direction on Map"}
-                </button>
+                    <div className="mt-4">
+                      <p className="font-semibold mb-2">📅 Book a Slot:</p>
+                      <input
+                        type="date"
+                        className="border p-1 rounded mr-2"
+                        value={booking[worker.id]?.date || ""}
+                        onChange={(e) =>
+                          handleBooking(worker.id, e.target.value, booking[worker.id]?.time || "")
+                        }
+                      />
+                      <input
+                        type="time"
+                        className="border p-1 rounded mr-2"
+                        value={booking[worker.id]?.time || ""}
+                        onChange={(e) =>
+                          handleBooking(worker.id, booking[worker.id]?.date || "", e.target.value)
+                        }
+                      />
+                      <button
+                        className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                        onClick={() =>
+                          alert(
+                            `Booking Confirmed: ${booking[worker.id]?.date} at ${booking[worker.id]?.time}`
+                          )
+                        }
+                      >
+                        Confirm Booking
+                      </button>
+                    </div>
 
-                {userCoords && (
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&origin=${userCoords.lat},${userCoords.lng}&destination=${worker.coords.lat},${worker.coords.lng}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block mt-2 text-sm text-green-600 hover:underline"
-                  >
-                    Open in Google Maps
-                  </a>
+                    {booking[worker.id] && booking[worker.id].date && booking[worker.id].time && (
+                      <p className="mt-2 text-green-600 text-sm">
+                        ✅ Booked for {booking[worker.id].date} at {booking[worker.id].time}
+                      </p>
+                    )}
+
+                    <button
+                      onClick={() => {
+                        getUserLocation();
+                        setShowMapWorkerId(
+                          showMapWorkerId === worker.id ? null : worker.id
+                        );
+                      }}
+                      className="mt-4 text-sm text-blue-500 hover:underline"
+                    >
+                      {showMapWorkerId === worker.id ? "Hide Map" : "Show Direction on Map"}
+                    </button>
+
+                    {userCoords && (
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&origin=${userCoords.lat},${userCoords.lng}&destination=${worker.coords.lat},${worker.coords.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block mt-2 text-sm text-green-600 hover:underline"
+                      >
+                        Open in Google Maps
+                      </a>
+                    )}
+
+                    {showMapWorkerId === worker.id &&
+                      userCoords &&
+                      worker.coords && (
+                        <MapWithDirection
+                          userCoords={userCoords}
+                          workerCoords={worker.coords}
+                        />
+                      )}
+                  </>
+                ) : (
+                  <p className="text-red-500">Please login to view full details and book.</p>
                 )}
-
-                {showMapWorkerId === worker.id &&
-                  userCoords &&
-                  worker.coords && (
-                    <MapWithDirection
-                      userCoords={userCoords}
-                      workerCoords={worker.coords}
-                    />
-                  )}
               </div>
             )}
           </div>
