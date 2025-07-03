@@ -15,6 +15,10 @@ import LoginPage from "./login.jsx";
 import Explore from "./explore.jsx";
 import MapWithRadius from "./mapWithRedius.jsx";
 import "leaflet/dist/leaflet.css";
+import Reels from "./reels.jsx";
+import Jobs from "./job.jsx";
+import Profile from "./profile.jsx";
+import Features from "./feature.jsx";
 
 
 // Either use your .env key like this:
@@ -35,6 +39,10 @@ createRoot(document.getElementById("root")).render(
           <Route path="/sign" element={<Signup/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/explore" element={<Explore/>} />
+          <Route path="/explore/reels" element={<Reels/>} />
+          <Route path="/explore/jobs" element={<Jobs/>} />
+          <Route path="/explore/profile" element={<Profile/>} />
+          <Route path="/explore/features" element={<Features/>} />
         </Routes>
       </BrowserRouter>
     </ClerkProvider>
