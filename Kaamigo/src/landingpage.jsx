@@ -1,5 +1,8 @@
+// LandingPage.jsx
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useUser, useClerk } from '@clerk/clerk-react';
+import { FiLogOut } from 'react-icons/fi';
 
 // Dynamic styling for active nav links
 const navLinkClass = ({ isActive }) =>
@@ -10,41 +13,68 @@ const navLinkClass = ({ isActive }) =>
   }`;
 
 // Navbar Component
-const Navbar = () => (
-  <nav className="flex flex-wrap items-center justify-between px-6 md:px-8 py-4 md:py-6 border-b shadow-sm bg-indigo-50 transition-all duration-300">
-    {/* Logo */}
-    <NavLink to="/" className="text-2xl md:text-3xl font-bold text-purple-700 hover:text-purple-800 transition-colors duration-300 cursor-pointer">
-      Kaamigo
-    </NavLink>
+const Navbar = () => {
+  const {user, isSignedIn } = useUser();
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
 
-    {/* Navigation links */}
-    <div className="hidden md:flex flex-wrap space-x-2 text-base font-medium">
-      <NavLink to="/" className={navLinkClass} end>Home</NavLink>
-      <span className="py-2 px-3 text-gray-500 cursor-not-allowed">Explore</span>
-      <NavLink to="/about" className={navLinkClass}>About Us</NavLink>
-      <NavLink to="/partners" className={navLinkClass}>Partners</NavLink>
-      <NavLink to="/coins" className={navLinkClass}>Coins</NavLink>
-      <NavLink to="/contact" className={navLinkClass}>Contact Us</NavLink>
-      <NavLink to="/blog" className={navLinkClass}>Blog</NavLink>
-    </div>
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/login');
+  };
 
-    {/* Auth Buttons */}
-    <div className="flex items-center space-x-4 mt-4 md:mt-0">
-      <button className="text-base font-medium text-gray-700 hover:text-orange-500 transition-colors duration-300 py-2 px-4 rounded hover:bg-orange-50">
-        Login
-      </button>
-      <button className="bg-purple-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-        Sign Up
-      </button>
-    </div>
-  </nav>
-);
+  return (
+    <nav className="flex flex-wrap items-center justify-between px-6 md:px-8 py-4 md:py-6 border-b shadow-sm bg-indigo-50 transition-all duration-300">
+      {/* Logo */}
+      <NavLink to="/" className="text-2xl md:text-3xl font-bold text-purple-700 hover:text-purple-800 transition-colors duration-300 cursor-pointer">
+        Kaamigo
+      </NavLink>
+
+      {/* Navigation links */}
+      <div className="hidden md:flex flex-wrap space-x-2 text-base font-medium">
+        <NavLink to="/" className={navLinkClass} end>Home</NavLink>
+        <NavLink to="/explore" className={navLinkClass}>Explore</NavLink>
+        <NavLink to="/about" className={navLinkClass}>About Us</NavLink>
+        <NavLink to="/partners" className={navLinkClass}>Partners</NavLink>
+        <NavLink to="/coins" className={navLinkClass}>Coins</NavLink>
+        <NavLink to="/contact" className={navLinkClass}>Contact Us</NavLink>
+        <NavLink to="/blog" className={navLinkClass}>Blog</NavLink>
+      </div>
+
+      {/* Auth Buttons */}
+      <div className="flex items-center space-x-4 mt-4 md:mt-0">
+        {!isSignedIn ? (
+          <>
+            <NavLink to="/login" className="text-base font-medium text-gray-700 hover:text-orange-500 transition-colors duration-300 py-2 px-4 rounded hover:bg-orange-50">
+              Login
+            </NavLink>
+            <NavLink to="/sign" className="bg-purple-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              Sign Up
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <div className="text-base font-medium text-purple-700 hover:text-orange-500 transition-colors duration-300 py-2 px-4 rounded hover:bg-orange-50">
+              Hi, {user?.firstName || 'User'}
+            </div>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md transition-colors duration-300 text-sm font-medium"
+            >
+              <FiLogOut className="text-lg" /> Logout
+            </button>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+};
 
 // Landing Page
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white text-gray-800">
-      {/* Hero Section */}
+       {/* Hero Section */}
       <div className="bg-gradient-to-br from-orange-100 to-orange-50 py-24 md:py-32 text-center px-4 sm:px-6">
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 animate-pulse">
           Reels Bhi. Rozgaar Bhi.
@@ -219,6 +249,7 @@ const LandingPage = () => {
       <footer className="bg-white text-center py-6 border-t text-sm text-gray-600">
         © {new Date().getFullYear()} Kaamigo. All rights reserved.
       </footer>
+
     </div>
   );
 };
