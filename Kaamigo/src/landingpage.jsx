@@ -21,11 +21,11 @@ const Navbar = () => (
     <div className="hidden md:flex flex-wrap space-x-2 text-base font-medium">
       <NavLink to="/" className={navLinkClass} end>Home</NavLink>
       <span className="py-2 px-3 text-gray-500 cursor-not-allowed">Explore</span>
-      <span className="py-2 px-3 text-gray-500 cursor-not-allowed">About Us</span>
+      <NavLink to="/about" className={navLinkClass}>About Us</NavLink>
       <NavLink to="/partners" className={navLinkClass}>Partners</NavLink>
       <NavLink to="/coins" className={navLinkClass}>Coins</NavLink>
       <NavLink to="/contact" className={navLinkClass}>Contact Us</NavLink>
-      <span className="py-2 px-3 text-gray-500 cursor-not-allowed">Blog</span>
+      <NavLink to="/blog" className={navLinkClass}>Blog</NavLink>
     </div>
 
     {/* Auth Buttons */}

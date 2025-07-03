@@ -7,6 +7,8 @@ import ContactUs from './contactus.jsx'
 import Coins from './coins.jsx'
 import Partners from './partners.jsx'
 import { Navbar } from './landingpage.jsx';
+import AboutPage from './about.jsx';
+import Blog from './blog.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/coins" element={<Coins />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
