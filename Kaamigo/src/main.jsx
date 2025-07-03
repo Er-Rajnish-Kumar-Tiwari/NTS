@@ -19,6 +19,8 @@ import Reels from "./reels.jsx";
 import Jobs from "./job.jsx";
 import Profile from "./profile.jsx";
 import Features from "./feature.jsx";
+import HowItWorks from "./howItWork.jsx";
+import FeatureBtn from "./premium.jsx";
 
 
 // Either use your .env key like this:
@@ -43,6 +45,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="/explore/jobs" element={<Jobs/>} />
           <Route path="/explore/profile" element={<Profile/>} />
           <Route path="/explore/features" element={<Features/>} />
+          <Route path="/explore/how-it-works" element={<HowItWorks/>} />
+          <Route path="/explore/featurebtn" element={<FeatureBtn/>} />
         </Routes>
       </BrowserRouter>
     </ClerkProvider>
