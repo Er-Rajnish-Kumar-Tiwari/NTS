@@ -20,10 +20,10 @@ export default function FeatureBtn() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-orange-50 to-yellow-100 font-century-gothic">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-orange-50 to-yellow-100 font-[Inter]">
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6 rounded-r-xl sticky top-0 h-screen">
-        <h2 className="text-2xl font-extrabold text-purple-700 mb-6">📍 Kaamigo</h2>
+        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer" onClick={()=>navigate("/explore")}>📍 Kaamigo</h2>
         <nav className="space-y-3">
           {[ 
             { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
@@ -53,26 +53,24 @@ export default function FeatureBtn() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:ml-64">
+      <main className="flex-1 p-4 sm:p-6 md:ml-64 space-y-10">
         {/* Hero Section */}
-        <section className="bg-gradient-to-t from-orange-200 to-yellow-200 text-center py-12 px-4 rounded-lg mb-10">
+        <section className="bg-gradient-to-t from-orange-200 to-yellow-200 text-center py-12 px-4 rounded-lg">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
             Unlock Your Full Potential with <span className="text-purple-700">Kaamigo Pro</span>
           </h1>
-          <p className="max-w-2xl mx-auto mb-6">
+          <p className="max-w-2xl mx-auto mb-6 text-sm sm:text-base">
             Experience the best of Kaamigo with advanced features, unlimited possibilities, and dedicated support for your growing business.
           </p>
-          <button className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
+          <button className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 text-sm sm:text-base">
             Upgrade to Kaamigo Pro
           </button>
         </section>
 
         {/* Pricing Plans */}
-        <section className="py-12 px-4">
-          <h2 className="text-2xl font-bold text-center mb-10">
-            Choose Your Perfect Plan
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <section className="py-8 px-2 sm:px-4">
+          <h2 className="text-2xl font-bold text-center mb-10">Choose Your Perfect Plan</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Free Plan */}
             <div className={`bg-white border p-6 rounded-lg shadow ${selectedPlan === "free" ? "border-purple-500 bg-purple-50" : ""}`}>
               <h3 className="text-xl font-bold mb-2">Free Plan</h3>
@@ -92,9 +90,7 @@ export default function FeatureBtn() {
 
             {/* Pro Plan */}
             <div className={`bg-white border-2 p-6 rounded-lg shadow relative ${selectedPlan === "pro" ? "border-purple-500" : "border-gray-300"}`}>
-              <span className="absolute top-0 right-0 bg-purple-500 text-white text-xs px-2 py-1 rounded-bl">
-                Recommended
-              </span>
+              <span className="absolute top-0 right-0 bg-purple-500 text-white text-xs px-2 py-1 rounded-bl">Recommended</span>
               <h3 className="text-xl font-bold mb-2">Kaamigo Pro</h3>
               <p className="text-2xl font-bold mb-4">$19 <span className="text-sm font-normal">/month</span></p>
               <ul className="space-y-2 mb-6 text-sm">
@@ -114,7 +110,7 @@ export default function FeatureBtn() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 px-4">
             <div className="bg-white p-6 rounded shadow max-w-sm w-full text-center">
               <h3 className="font-bold text-lg mb-2">Upgrade to Kaamigo Pro?</h3>
               <p className="text-sm text-gray-600 mb-4">Confirm your subscription to unlock all Pro features.</p>
@@ -129,10 +125,7 @@ export default function FeatureBtn() {
                 >
                   Confirm
                 </button>
-                <button
-                  className="px-4 py-2 border rounded"
-                  onClick={() => setShowModal(false)}
-                >
+                <button className="px-4 py-2 border rounded" onClick={() => setShowModal(false)}>
                   Cancel
                 </button>
               </div>
@@ -141,10 +134,8 @@ export default function FeatureBtn() {
         )}
 
         {/* Comparison Table */}
-        <section className="py-12 px-4">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Detailed Feature Comparison
-          </h2>
+        <section className="py-8 px-2 sm:px-4">
+          <h2 className="text-2xl font-bold text-center mb-8">Detailed Feature Comparison</h2>
           <div className="overflow-x-auto max-w-5xl mx-auto">
             <table className="w-full table-auto border-collapse text-sm">
               <thead>
@@ -169,9 +160,7 @@ export default function FeatureBtn() {
 
         {/* Testimonials */}
         <div className="mb-12 border border-gray-200 p-6 rounded-lg shadow bg-gradient-to-l from-blue-100 to-pink-100">
-          <h4 className="text-3xl text-purple-600 mt-4 mb-4 font-bold text-center">
-            What Our Users Say
-          </h4>
+          <h4 className="text-3xl text-purple-600 mt-4 mb-4 font-bold text-center">What Our Users Say</h4>
           <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-2">
             {[{
               quote: "Kaamigo transformed how I find local talent. The map feature is a game-changer!",
@@ -188,7 +177,7 @@ export default function FeatureBtn() {
             }].map((item) => (
               <div
                 key={item.name}
-                className="min-w-[280px] snap-center bg-white p-10 rounded-md shadow text-sm text-gray-700 flex-shrink-0"
+                className="min-w-[280px] snap-center bg-white p-6 rounded shadow text-sm text-gray-700 flex-shrink-0"
               >
                 <p className="mb-2 italic">“{item.quote}”</p>
                 <p className="font-semibold">{item.name}</p>
@@ -199,20 +188,20 @@ export default function FeatureBtn() {
         </div>
 
         {/* Newsletter Footer */}
-        <footer className="py-8 bg-gradient-to-l from-purple-300 to-violet-200 text-center shadow-inner">
+        <footer className="py-8 bg-gradient-to-l from-purple-300 to-violet-200 text-center shadow-inner px-4">
           <h3 className="font-bold text-lg mb-2">Kaamigo</h3>
           <p className="text-sm text-gray-600 mb-4">Stay updated with Kaamigo</p>
-          <div className="flex justify-center gap-2 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row justify-center gap-2 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Your email"
-              className="flex-1 px-4 py-2 border rounded-l-lg"
+              className="flex-1 px-4 py-2 border rounded sm:rounded-l-lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button
               onClick={handleSubscribe}
-              className="bg-purple-500 text-white px-4 py-2 rounded-r-lg hover:bg-purple-600"
+              className="bg-purple-500 text-white px-4 py-2 rounded sm:rounded-r-lg hover:bg-purple-600"
             >
               Subscribe
             </button>

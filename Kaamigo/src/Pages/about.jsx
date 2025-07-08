@@ -8,6 +8,7 @@ const teamMembers = [
   { name: 'Aryan Mehta', role: 'Product Lead', img: 'https://randomuser.me/api/portraits/men/4.jpg' },
 ];
 
+
 const AboutPage = () => {
   return (
     <div className="bg-orange-50 text-gray-800">

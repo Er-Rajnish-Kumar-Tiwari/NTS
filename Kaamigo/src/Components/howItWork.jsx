@@ -14,12 +14,12 @@ export default function HowItWorks() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-orange-50 to-yellow-100 font-century-gothic">
+    <div className="min-h-screen flex bg-gradient-to-br from-orange-50 to-yellow-100 font-[Inter]">
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6 rounded-r-xl">
-        <h2 className="text-2xl font-extrabold text-purple-700 mb-6">📍 Kaamigo</h2>
+        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer" onClick={()=>navigate("/explore")}>📍 Kaamigo</h2>
         <nav className="space-y-3">
-          {[ 
+          {[
             { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
             { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
             { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
@@ -47,23 +47,21 @@ export default function HowItWorks() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-4 sm:p-6 space-y-10 w-full">
         {/* Top Banner */}
-        <div className="bg-gradient-to-b from-yellow-100 to-orange-300 text-center py-10 px-4 rounded-lg mb-10">
-          <h2 className="text-3xl font-bold">
+        <div className="bg-gradient-to-b from-yellow-100 to-orange-300 text-center py-10 px-4 sm:px-10 rounded-lg">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             Discover How <span className="text-orange-600">Kaamigo</span> Connects You
           </h2>
-          <p className="text-base text-gray-600 mt-2">
+          <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-xl mx-auto">
             Learn the simple, effective steps to find the perfect freelancer or land your next exciting gig.
           </p>
         </div>
 
         {/* For Freelancers */}
-        <div className="mb-10">
-          <h3 className="text-2xl text-purple-600 font-bold mb-8 text-center">
-            For Freelancers
-          </h3>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <section>
+          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">For Freelancers</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
                 title: "Create Your Profile",
@@ -83,24 +81,20 @@ export default function HowItWorks() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="bg-white p-10 rounded-lg shadow text-center hover:shadow-md transition duration-300"
+                className="bg-white p-6 rounded-lg shadow text-center hover:shadow-md transition duration-300"
               >
                 <div className="text-4xl mb-3">{item.icon}</div>
-                <h4 className="font-semibold text-lg mb-2 text-orange-500">
-                  {item.title}
-                </h4>
+                <h4 className="font-semibold text-lg text-orange-500 mb-2">{item.title}</h4>
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* For Customers */}
-        <div className="mb-10">
-          <h3 className="text-2xl text-purple-600 font-bold mb-8 text-center">
-            For Customers
-          </h3>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <section>
+          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">For Customers</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
                 title: "Find Nearby Talent",
@@ -120,34 +114,31 @@ export default function HowItWorks() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="bg-white p-10 rounded-lg shadow text-center hover:shadow-md transition duration-300"
+                className="bg-white p-6 rounded-lg shadow text-center hover:shadow-md transition duration-300"
               >
                 <div className="text-4xl mb-3">{item.icon}</div>
-                <h4 className="font-semibold text-lg mb-2 text-orange-500">
-                  {item.title}
-                </h4>
+                <h4 className="font-semibold text-lg text-orange-500 mb-2">{item.title}</h4>
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* CTA Footer */}
-        <div className="bg-gradient-to-r from-purple-100 to-purple-300 text-center py-10 px-4 rounded-lg">
-          <h4 className="text-2xl text-purple-600 font-bold mb-4">
-            Ready to Get Started?
-          </h4>
-          <p className="text-sm text-gray-700 mb-4">
+        <section className="bg-gradient-to-r from-purple-100 to-purple-300 text-center py-10 px-4 sm:px-10 rounded-lg">
+          <h4 className="text-xl sm:text-2xl text-purple-600 font-bold mb-4">Ready to Get Started?</h4>
+          <p className="text-sm sm:text-base text-gray-700 mb-4 max-w-xl mx-auto">
             Join Kaamigo today and transform the way you work or find talent.
           </p>
           <button
             onClick={handleExploreClick}
-            className="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700"
+            className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 text-sm"
           >
             {ctaClicked ? "Redirecting..." : "Explore Opportunities"}
           </button>
-        </div>
+        </section>
 
+        {/* Scroll to Top */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-4 right-4 bg-orange-600 text-white px-3 py-2 rounded-full shadow hover:bg-gradient-to-r from-orange-400 to-yellow-500 transition duration-300"

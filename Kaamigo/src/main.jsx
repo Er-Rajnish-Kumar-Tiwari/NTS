@@ -3,24 +3,23 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import LandingPage from "./landingpage.jsx";
-import ContactUs from "./contactus.jsx";
-import Coins from "./coins.jsx";
-import Partners from "./partners.jsx";
 import { Navbar } from "./landingpage.jsx";
-import AboutPage from "./about.jsx";
-import Blog from "./blog.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
-import Signup from "./sign.jsx";
-import LoginPage from "./login.jsx";
-import Explore from "./explore.jsx";
-import MapWithRadius from "./mapWithRedius.jsx";
 import "leaflet/dist/leaflet.css";
-import Reels from "./reels.jsx";
-import Jobs from "./job.jsx";
-import Profile from "./profile.jsx";
-import Features from "./feature.jsx";
-import HowItWorks from "./howItWork.jsx";
-import FeatureBtn from "./premium.jsx";
+import Signup from "./Pages/sign.jsx";
+import LoginPage from "./Pages/login.jsx";
+import Explore from "./Pages/explore.jsx";
+import AboutPage from "./Pages/about.jsx";
+import Partners from "./Pages/partners.jsx";
+import Coins from "./Pages/coins.jsx";
+import ContactUs from "./Pages/contactus.jsx";
+import Blog from "./Pages/blog.jsx";
+import Jobs from "./Components/job.jsx";
+import Reels from "./Components/reels.jsx";
+import Profile from "./Components/profile.jsx";
+import Features from "./Components/feature.jsx";
+import HowItWorks from "./Components/howItWork.jsx";
+import FeatureBtn from "./Components/premium.jsx";
 
 
 // Either use your .env key like this:

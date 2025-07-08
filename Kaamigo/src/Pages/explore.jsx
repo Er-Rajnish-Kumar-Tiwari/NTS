@@ -1,30 +1,58 @@
-import React from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket } from "react-icons/fa";
-import MapWithRadius from "./mapWithRedius";
+import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket, FaBars, FaTimes } from "react-icons/fa";
+import MapWithRadius from "../mapWithRedius";
 
 export default function Explore() {
+  const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+  const menuItems = [
+    { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
+    { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
+    { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
+    { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
+    { label: "Features", path: "/explore/features", icon: <FaRocket /> },
+    { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
+    { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-purple-50 flex font-[Inter]">
+      {/* Mobile Menu Button */}
+      <button onClick={toggleSidebar} className="md:hidden fixed top-4 left-4 z-50 bg-purple-600 text-white p-2 rounded shadow-lg">
+        {sidebarOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
       {/* Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6">
-        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide">📍 Kaamigo</h2>
+      <aside
+        className={`fixed top-0 left-0 h-full bg-white w-64 p-6 z-40 transform transition-transform duration-300 shadow-xl space-y-6 md:static md:translate-x-0 md:flex md:flex-col ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <h2
+          className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer"
+          onClick={() => {
+            navigate("/explore");
+            setSidebarOpen(false);
+          }}
+        >
+          📍 Kaamigo
+        </h2>
         <nav className="space-y-2">
-          {[{ label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
-            { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
-            { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
-            { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
-            { label: "Features", path: "/explore/features", icon: <FaRocket /> },
-            { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
-            { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
-          ].map((item) => (
+          {menuItems.map((item) => (
             <NavLink
               key={item.label}
               to={item.path}
+              onClick={() => setSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                  isActive ? "bg-purple-600 text-white shadow-lg" : "text-gray-700 hover:bg-purple-100 hover:text-purple-800"
+                  isActive
+                    ? "bg-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-purple-100 hover:text-purple-800"
                 }`
               }
             >
@@ -36,7 +64,7 @@ export default function Explore() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 md:ml-64">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Filters */}
           <aside className="space-y-6">
