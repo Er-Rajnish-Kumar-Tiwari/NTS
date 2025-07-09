@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket, FaBars, FaTimes } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  LuLayoutDashboard,
+} from "react-icons/lu";
+import {
+  FaVideo,
+  FaBriefcase,
+  FaUserAlt,
+  FaCrown,
+  FaQuestion,
+  FaRocket,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import MapWithRadius from "../mapWithRedius";
 
 export default function Explore() {
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const menuItems = [
     { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
@@ -20,51 +30,63 @@ export default function Explore() {
     { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
   ];
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-purple-50 flex font-[Inter]">
-      {/* Mobile Menu Button */}
-      <button onClick={toggleSidebar} className="md:hidden fixed top-4 left-4 z-50 bg-purple-600 text-white p-2 rounded shadow-lg">
-        {sidebarOpen ? <FaTimes /> : <FaBars />}
-      </button>
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-      {/* Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 h-full bg-white w-64 p-6 z-40 transform transition-transform duration-300 shadow-xl space-y-6 md:static md:translate-x-0 md:flex md:flex-col ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-purple-50 flex flex-col md:flex-row font-[Inter]">
+      
+      {/* Mobile Header */}
+      <div className="md:hidden p-4 flex justify-between items-center bg-white shadow-md z-10">
         <h2
-          className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer"
-          onClick={() => {
-            navigate("/explore");
-            setSidebarOpen(false);
-          }}
+          className="text-xl font-bold text-purple-700 cursor-pointer"
+          onClick={() => navigate("/explore")}
         >
           📍 Kaamigo
         </h2>
-        <nav className="space-y-2">
-          {menuItems.map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.path}
-              onClick={() => setSidebarOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                  isActive
-                    ? "bg-purple-600 text-white shadow-lg"
-                    : "text-gray-700 hover:bg-purple-100 hover:text-purple-800"
-                }`
-              }
-            >
-              <span className="text-lg">{item.icon}</span>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-      </aside>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="text-purple-700 text-2xl">
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+
+      {/* Sidebar (Mobile toggle + Desktop fixed) */}
+      {(menuOpen || !isMobile) && (
+        <aside className="bg-white w-full md:w-64 p-6 z-10 shadow-xl space-y-6 flex flex-col overflow-y-auto">
+          <h2
+            className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer hidden md:block"
+            onClick={() => navigate("/explore")}
+          >
+            📍 Kaamigo
+          </h2>
+          <nav className="space-y-2">
+            {menuItems.map((item) => (
+              <NavLink
+                key={item.label}
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-purple-600 text-white shadow-lg"
+                      : "text-gray-700 hover:bg-purple-100 hover:text-purple-800"
+                  }`
+                }
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="text-lg">{item.icon}</span>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+        </aside>
+      )}
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:ml-64">
+      <main className="flex-1 p-4 md:p-6 overflow-y-auto h-full">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Filters */}
           <aside className="space-y-6">
@@ -123,8 +145,10 @@ export default function Explore() {
           {/* Map Section */}
           <section className="lg:col-span-2 space-y-6">
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <h2 className="text-xl font-bold text-gray-800 text-center mb-4">Freelancers Around You (5km)</h2>
-              <div className="h-[400px] rounded-lg overflow-hidden">
+              <h2 className="text-xl font-bold text-gray-800 text-center mb-4">
+                Freelancers Around You (5km)
+              </h2>
+              <div className="h-[300px] sm:h-[400px] rounded-lg overflow-hidden">
                 <MapWithRadius />
               </div>
               <div className="text-center mt-4">
@@ -138,8 +162,10 @@ export default function Explore() {
 
         {/* Featured Freelancers */}
         <section className="mt-10">
-          <h2 className="text-lg font-semibold mb-4 text-gray-700">Featured Freelancers Nearby</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <h2 className="text-lg font-semibold mb-4 text-gray-700">
+            Featured Freelancers Nearby
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="bg-white p-4 rounded-xl shadow-md">
                 <div className="h-24 bg-gray-200 rounded mb-2" />
@@ -153,7 +179,7 @@ export default function Explore() {
           </div>
         </section>
 
-        {/* Back to Top */}
+        {/* Scroll to Top Button */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-4 right-4 bg-orange-600 text-white px-4 py-2 rounded-full shadow hover:bg-gradient-to-r from-orange-400 to-yellow-500 transition duration-300"
