@@ -1,26 +1,49 @@
 import React from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket } from "react-icons/fa";
+import {
+  FaVideo,
+  FaBriefcase,
+  FaUserAlt,
+  FaCrown,
+  FaQuestion,
+  FaRocket,
+} from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Jobs() {
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
-  
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-purple-50 to-orange-100 font-[Inter]">
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6 rounded-r-xl">
-        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer" onClick={()=>navigate("/explore")}>📍 Kaamigo</h2>
+        <h2
+          className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer"
+          onClick={() => navigate("/explore")}
+        >
+          📍 Kaamigo
+        </h2>
         <nav className="space-y-3">
           {[
             { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
             { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
             { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
             { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
-            { label: "Features", path: "/explore/features", icon: <FaRocket /> },
-            { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
-            { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
+            {
+              label: "Features",
+              path: "/explore/features",
+              icon: <FaRocket />,
+            },
+            {
+              label: "How it Works",
+              path: "/explore/how-it-works",
+              icon: <FaQuestion />,
+            },
+            {
+              label: "Premium",
+              path: "/explore/featurebtn",
+              icon: <FaCrown />,
+            },
           ].map((item) => (
             <NavLink
               key={item.label}
@@ -45,7 +68,9 @@ export default function Jobs() {
         {/* Header and Filters */}
         <div className="space-y-4">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-orange-500">Jobs Board</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-orange-500">
+              Jobs Board
+            </h2>
             <div className="flex flex-wrap gap-2">
               <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-gradient-to-r from-orange-500 to-yellow-500">
                 Browse Jobs
@@ -99,12 +124,15 @@ export default function Jobs() {
                     <h3 className="font-semibold text-base flex-1 text-gray-800">
                       Job Title #{index + 1}
                     </h3>
-                    <p className="text-purple-600 font-bold text-sm whitespace-nowrap">$XX - $YY</p>
+                    <p className="text-purple-600 font-bold text-sm whitespace-nowrap">
+                      $XX - $YY
+                    </p>
                   </div>
                   <p className="text-sm text-orange-500">Contract/Part Time</p>
                   <p className="text-sm text-orange-500">Location: XYZ</p>
                   <p className="text-sm text-gray-700 mt-2">
-                    Brief description of the job role and requirements goes here.
+                    Brief description of the job role and requirements goes
+                    here.
                   </p>
                 </div>
                 <div className="flex justify-between items-center pt-2">
@@ -140,6 +168,18 @@ export default function Jobs() {
         >
           Go Back
         </button>
+        {/* Footer */}
+        <footer className="bg-[#181B23] py-10 text-center text-gray-300 mt-16 animate-fade-in">
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">
+            Kaamigo
+          </div>
+          <div className="mb-2 text-sm sm:text-base">
+            Connecting talent with opportunities through voice-first innovation
+          </div>
+          <div className="text-xs text-gray-500">
+            © 2024 Kaamigo. All rights reserved.
+          </div>
+        </footer>
       </main>
     </div>
   );

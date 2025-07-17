@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  LuLayoutDashboard,
-} from "react-icons/lu";
+import { LuLayoutDashboard } from "react-icons/lu";
 import {
   FaVideo,
   FaBriefcase,
@@ -26,7 +24,11 @@ export default function Explore() {
     { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
     { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
     { label: "Features", path: "/explore/features", icon: <FaRocket /> },
-    { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
+    {
+      label: "How it Works",
+      path: "/explore/how-it-works",
+      icon: <FaQuestion />,
+    },
     { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
   ];
 
@@ -39,24 +41,26 @@ export default function Explore() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-purple-50 flex flex-col md:flex-row font-[Inter]">
-      
+    <div className="min-h-screen bg-gradient-to-br from-orange-200 to-purple-300 flex flex-col md:flex-row font-[Inter]">
       {/* Mobile Header */}
-      <div className="md:hidden p-4 flex justify-between items-center bg-white shadow-md z-10">
+      <div className="md:hidden p-4 flex justify-between items-center bg-gradient-to-r from-orange-100 to-purple-100 shadow-md z-10">
         <h2
           className="text-xl font-bold text-purple-700 cursor-pointer"
           onClick={() => navigate("/explore")}
         >
           📍 Kaamigo
         </h2>
-        <button onClick={() => setMenuOpen(!menuOpen)} className="text-purple-700 text-2xl">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-purple-700 text-2xl"
+        >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
       {/* Sidebar (Mobile toggle + Desktop fixed) */}
       {(menuOpen || !isMobile) && (
-        <aside className="bg-white w-full md:w-64 p-6 z-10 shadow-xl space-y-6 flex flex-col overflow-y-auto">
+        <aside className="bg-gradient-to-r from-orange-100 to-purple-100 w-full md:w-64 p-6 z-10 shadow-xl space-y-6 flex flex-col overflow-y-auto">
           <h2
             className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer hidden md:block"
             onClick={() => navigate("/explore")}
@@ -91,7 +95,9 @@ export default function Explore() {
           {/* Filters */}
           <aside className="space-y-6">
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <h2 className="text-xl font-bold text-gray-800 mb-3">Discover Freelancers</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-3">
+                Discover Freelancers
+              </h2>
               <input
                 type="text"
                 placeholder="Search by name, skill..."
@@ -103,7 +109,9 @@ export default function Explore() {
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-md space-y-4">
-              <h2 className="text-lg font-semibold text-gray-700">Filter Options</h2>
+              <h2 className="text-lg font-semibold text-gray-700">
+                Filter Options
+              </h2>
               <select className="w-full p-2 border rounded-lg text-sm">
                 <option>Category</option>
               </select>
@@ -117,23 +125,40 @@ export default function Explore() {
               />
               <div>
                 <label className="block text-sm font-medium mb-1">Rating</label>
-                <input type="range" min="1" max="5" className="w-full accent-orange-500" />
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  className="w-full accent-orange-500"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Price Range</label>
-                <input type="range" min="0" max="500" className="w-full accent-orange-500" />
+                <label className="block text-sm font-medium mb-1">
+                  Price Range
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="500"
+                  className="w-full accent-orange-500"
+                />
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-md">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4">Nearby Freelancers</h2>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Nearby Freelancers
+              </h2>
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gray-300 rounded-full mr-3" />
                   <div>
                     <p className="font-semibold text-sm">Name #{i + 1}</p>
                     <p className="text-sm text-gray-500">Web Designer</p>
-                    <a href="#" className="text-sm text-purple-600 hover:underline">
+                    <a
+                      href="#"
+                      className="text-sm text-purple-600 hover:underline"
+                    >
                       View Profile
                     </a>
                   </div>
@@ -186,6 +211,18 @@ export default function Explore() {
         >
           Go Back
         </button>
+        {/* Footer */}
+        <footer className="bg-[#181B23] py-10 text-center text-gray-300 mt-16 animate-fade-in">
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">
+            Kaamigo
+          </div>
+          <div className="mb-2 text-sm sm:text-base">
+            Connecting talent with opportunities through voice-first innovation
+          </div>
+          <div className="text-xs text-gray-500">
+            © 2024 Kaamigo. All rights reserved.
+          </div>
+        </footer>
       </main>
     </div>
   );

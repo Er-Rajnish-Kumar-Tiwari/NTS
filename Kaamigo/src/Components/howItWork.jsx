@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket } from "react-icons/fa";
+import {
+  FaVideo,
+  FaBriefcase,
+  FaUserAlt,
+  FaCrown,
+  FaQuestion,
+  FaRocket,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 export default function HowItWorks() {
@@ -17,16 +24,33 @@ export default function HowItWorks() {
     <div className="min-h-screen flex bg-gradient-to-br from-orange-50 to-yellow-100 font-[Inter]">
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6 rounded-r-xl">
-        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer" onClick={()=>navigate("/explore")}>📍 Kaamigo</h2>
+        <h2
+          className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer"
+          onClick={() => navigate("/explore")}
+        >
+          📍 Kaamigo
+        </h2>
         <nav className="space-y-3">
           {[
             { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
             { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
             { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
             { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
-            { label: "Features", path: "/explore/features", icon: <FaRocket /> },
-            { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
-            { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
+            {
+              label: "Features",
+              path: "/explore/features",
+              icon: <FaRocket />,
+            },
+            {
+              label: "How it Works",
+              path: "/explore/how-it-works",
+              icon: <FaQuestion />,
+            },
+            {
+              label: "Premium",
+              path: "/explore/featurebtn",
+              icon: <FaCrown />,
+            },
           ].map((item) => (
             <NavLink
               key={item.label}
@@ -51,16 +75,20 @@ export default function HowItWorks() {
         {/* Top Banner */}
         <div className="bg-gradient-to-b from-yellow-100 to-orange-300 text-center py-10 px-4 sm:px-10 rounded-lg">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-            Discover How <span className="text-orange-600">Kaamigo</span> Connects You
+            Discover How <span className="text-orange-600">Kaamigo</span>{" "}
+            Connects You
           </h2>
           <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-xl mx-auto">
-            Learn the simple, effective steps to find the perfect freelancer or land your next exciting gig.
+            Learn the simple, effective steps to find the perfect freelancer or
+            land your next exciting gig.
           </p>
         </div>
 
         {/* For Freelancers */}
         <section>
-          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">For Freelancers</h3>
+          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">
+            For Freelancers
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
@@ -84,7 +112,9 @@ export default function HowItWorks() {
                 className="bg-white p-6 rounded-lg shadow text-center hover:shadow-md transition duration-300"
               >
                 <div className="text-4xl mb-3">{item.icon}</div>
-                <h4 className="font-semibold text-lg text-orange-500 mb-2">{item.title}</h4>
+                <h4 className="font-semibold text-lg text-orange-500 mb-2">
+                  {item.title}
+                </h4>
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
@@ -93,7 +123,9 @@ export default function HowItWorks() {
 
         {/* For Customers */}
         <section>
-          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">For Customers</h3>
+          <h3 className="text-xl sm:text-2xl text-purple-600 font-bold mb-6 text-center">
+            For Customers
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
@@ -117,7 +149,9 @@ export default function HowItWorks() {
                 className="bg-white p-6 rounded-lg shadow text-center hover:shadow-md transition duration-300"
               >
                 <div className="text-4xl mb-3">{item.icon}</div>
-                <h4 className="font-semibold text-lg text-orange-500 mb-2">{item.title}</h4>
+                <h4 className="font-semibold text-lg text-orange-500 mb-2">
+                  {item.title}
+                </h4>
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
@@ -126,7 +160,9 @@ export default function HowItWorks() {
 
         {/* CTA Footer */}
         <section className="bg-gradient-to-r from-purple-100 to-purple-300 text-center py-10 px-4 sm:px-10 rounded-lg">
-          <h4 className="text-xl sm:text-2xl text-purple-600 font-bold mb-4">Ready to Get Started?</h4>
+          <h4 className="text-xl sm:text-2xl text-purple-600 font-bold mb-4">
+            Ready to Get Started?
+          </h4>
           <p className="text-sm sm:text-base text-gray-700 mb-4 max-w-xl mx-auto">
             Join Kaamigo today and transform the way you work or find talent.
           </p>
@@ -145,6 +181,18 @@ export default function HowItWorks() {
         >
           Go Back
         </button>
+        {/* Footer */}
+        <footer className="bg-[#181B23] py-10 text-center text-gray-300 mt-16 animate-fade-in">
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">
+            Kaamigo
+          </div>
+          <div className="mb-2 text-sm sm:text-base">
+            Connecting talent with opportunities through voice-first innovation
+          </div>
+          <div className="text-xs text-gray-500">
+            © 2024 Kaamigo. All rights reserved.
+          </div>
+        </footer>
       </main>
     </div>
   );

@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaVideo, FaBriefcase, FaUserAlt, FaCrown, FaQuestion, FaRocket } from "react-icons/fa";
+import {
+  FaVideo,
+  FaBriefcase,
+  FaUserAlt,
+  FaCrown,
+  FaQuestion,
+  FaRocket,
+} from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Profile() {
@@ -17,22 +24,39 @@ export default function Profile() {
     alert("Message sent to Sarah!");
   };
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-purple-50 to-orange-100 font-[Inter]">
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r shadow-xl p-6 space-y-6 rounded-r-xl">
-        <h2 className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer" onClick={()=>navigate("/explore")}>📍 Kaamigo</h2>
+        <h2
+          className="text-2xl font-extrabold text-purple-700 tracking-wide cursor-pointer"
+          onClick={() => navigate("/explore")}
+        >
+          📍 Kaamigo
+        </h2>
         <nav className="space-y-3">
           {[
             { label: "Explore", path: "/explore", icon: <LuLayoutDashboard /> },
             { label: "Reels", path: "/explore/reels", icon: <FaVideo /> },
             { label: "Jobs", path: "/explore/jobs", icon: <FaBriefcase /> },
             { label: "Profile", path: "/explore/profile", icon: <FaUserAlt /> },
-            { label: "Features", path: "/explore/features", icon: <FaRocket /> },
-            { label: "How it Works", path: "/explore/how-it-works", icon: <FaQuestion /> },
-            { label: "Premium", path: "/explore/featurebtn", icon: <FaCrown /> },
+            {
+              label: "Features",
+              path: "/explore/features",
+              icon: <FaRocket />,
+            },
+            {
+              label: "How it Works",
+              path: "/explore/how-it-works",
+              icon: <FaQuestion />,
+            },
+            {
+              label: "Premium",
+              path: "/explore/featurebtn",
+              icon: <FaCrown />,
+            },
           ].map((item) => (
             <NavLink
               key={item.label}
@@ -70,7 +94,8 @@ export default function Profile() {
                   <span className="block font-bold text-black">4.9</span>Rating
                 </div>
                 <div>
-                  <span className="block font-bold text-black">1200</span>Reviews
+                  <span className="block font-bold text-black">1200</span>
+                  Reviews
                 </div>
                 <div>
                   <span className="block font-bold text-black">77</span>Projects
@@ -108,16 +133,22 @@ export default function Profile() {
             <div className="bg-white p-6 rounded-lg shadow space-y-4">
               <h2 className="text-xl font-bold">About Me</h2>
               <p className="text-gray-700 text-sm">
-                Hi, I’m Sarah, a passionate and experienced graphic designer with specialization in
-                Figma, Adobe Creative Suite, Sketch. Fluent in English & Mandarin. 7 yrs of experience
-                in branding, UI/UX design, and digital marketing.
+                Hi, I’m Sarah, a passionate and experienced graphic designer
+                with specialization in Figma, Adobe Creative Suite, Sketch.
+                Fluent in English & Mandarin. 7 yrs of experience in branding,
+                UI/UX design, and digital marketing.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {Array(6).fill().map((_, i) => (
-                  <p key={i} className="text-sm text-gray-600">
-                    🔹 Specialization <span className="text-purple-600 ml-1">Design & Branding</span>
-                  </p>
-                ))}
+                {Array(6)
+                  .fill()
+                  .map((_, i) => (
+                    <p key={i} className="text-sm text-gray-600">
+                      🔹 Specialization{" "}
+                      <span className="text-purple-600 ml-1">
+                        Design & Branding
+                      </span>
+                    </p>
+                  ))}
               </div>
               <div className="mt-4">
                 <h3 className="font-semibold mb-2">Featured Reel</h3>
@@ -184,7 +215,9 @@ export default function Profile() {
                         alt="Client"
                         className="w-10 h-10 rounded-full"
                       />
-                      <p className="text-gray-500 text-xs">– {client}, Oct 2023</p>
+                      <p className="text-gray-500 text-xs">
+                        – {client}, Oct 2023
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -200,6 +233,19 @@ export default function Profile() {
         >
           Go Back
         </button>
+
+        {/* Footer */}
+        <footer className="bg-[#181B23] py-10 text-center text-gray-300 mt-16 animate-fade-in">
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">
+            Kaamigo
+          </div>
+          <div className="mb-2 text-sm sm:text-base">
+            Connecting talent with opportunities through voice-first innovation
+          </div>
+          <div className="text-xs text-gray-500">
+            © 2024 Kaamigo. All rights reserved.
+          </div>
+        </footer>
       </main>
     </div>
   );

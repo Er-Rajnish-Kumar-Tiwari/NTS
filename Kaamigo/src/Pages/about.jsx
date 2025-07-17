@@ -11,9 +11,9 @@ const teamMembers = [
 
 const AboutPage = () => {
   return (
-    <div className="bg-orange-50 text-gray-800">
+    <div className="bg-purple-200 text-gray-800">
       {/* Header Section */}
-      <section className="text-center py-10 px-4 bg-gradient-to-r from-orange-100 to-purple-100">
+      <section className="text-center py-10 px-4 bg-gradient-to-r from-purple-300 to-orange-300">
         <h1 className="text-4xl font-bold text-purple-700 mb-4">Our Mission</h1>
         <p className="max-w-3xl mx-auto text-lg">
           To empower everyday individuals across India by making social freelance opportunities accessible,
@@ -62,7 +62,7 @@ const AboutPage = () => {
       </section>
 
       {/* Team Section */}
-      <section className="bg-white py-12 px-6">
+      <section className="bg-purple-100 py-12 px-6">
         <h2 className="text-3xl font-bold text-center text-purple-700 mb-10">Meet Our Team</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-5xl mx-auto">
           {teamMembers.map((member, i) => (
@@ -80,13 +80,13 @@ const AboutPage = () => {
       </section>
 
       {/* Stay Connected */}
-      <section className="py-10 px-6 bg-gradient-to-r from-purple-50 to-orange-50">
+      <section className="py-10 px-6 bg-gradient-to-r from-purple-200 to-orange-100">
         <h2 className="text-2xl font-bold text-center text-purple-700 mb-6">Stay Connected</h2>
         <div className="flex flex-col items-center justify-center gap-4">
           <input
             type="email"
             placeholder="Enter your email"
-            className="px-4 py-3 rounded-lg border border-gray-300 w-full max-w-md focus:outline-none"
+            className="px-4 py-3 rounded-lg border border-gray-700 w-full max-w-md focus:outline-none"
           />
           <button className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-all">
             Subscribe
