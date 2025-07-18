@@ -177,7 +177,7 @@ export default function Jobs() {
             Connecting talent with opportunities through voice-first innovation
           </div>
           <div className="text-xs text-gray-500">
-            © 2024 Kaamigo. All rights reserved.
+            © 2025 Kaamigo. All rights reserved.
           </div>
         </footer>
       </main>
